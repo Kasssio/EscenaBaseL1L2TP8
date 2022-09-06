@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Silla
   - mesa
+  - Monitor
   layers:
   - Default
   - TransparentFX

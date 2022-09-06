@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class HolaDetect : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -15,13 +15,17 @@ public class NewBehaviourScript : MonoBehaviour
     {
         
     }
-
     void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.tag == "Monitor")
+        if (col.gameObject.tag == "Monitor")
         {
             Debug.Log("HOLA :)");
         }
-        
+
+        if (col.gameObject.name == "JeroPrisma")
+        {
+            Debug.Log("Blender");
+        }
+
     }
 }
