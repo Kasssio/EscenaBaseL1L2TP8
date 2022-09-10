@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7122a9a10e0f1094fa37e766ed703882, type: 3}
+  m_Name: NPC Data
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - Hola! Necesito tu ayuda
+  - "Una de estas computadoras est\xE1 consumiendo mucha energ\xEDa, pero no s\xE9
+    cual es"
+  - Me ayudas a encontrarla? Cuando la encuentres apagala

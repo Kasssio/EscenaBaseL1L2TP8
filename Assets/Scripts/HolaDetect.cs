@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class HolaDetect : MonoBehaviour
 {
+    [SerializeField] GameObject UIElements;
+    [SerializeField] TextMeshProUGUI dialogueTxt;
+    [SerializeField] string[] NPCDialogue;
     // Start is called before the first frame update
     void Start()
     {
-        
+        UIElements.SetActive(false);
     }
 
     // Update is called once per frame
@@ -17,15 +21,29 @@ public class HolaDetect : MonoBehaviour
     }
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag == "Monitor")
+        if (col.gameObject.CompareTag("JeroPrisma"))
         {
-            Debug.Log("HOLA :)");
+            UIElements.SetActive(true);
+            NPCDialogue = col.gameObject.GetComponent<NPCDialogue>().data.dialogueLines;
         }
 
-        if (col.gameObject.name == "JeroPrisma")
+    }
+
+    void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.CompareTag("JeroPrisma"))
         {
-            Debug.Log("Blender");
+            UIElements.SetActive(false);
         }
 
+    }
+
+    public void AvanzarDialogo()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            dialogueTxt.text = NPCDialogue[1];
+        }
+            
     }
 }
