@@ -9,11 +9,13 @@ public class HolaDetect : MonoBehaviour
     [SerializeField] TextMeshProUGUI dialogueTxt;
     [SerializeField] NPCData Datita;
     [SerializeField] AudioClip StickyKeysSound;
+    [SerializeField] GameObject CompuRara;
+
 
     GameObject[] computadoras;
 
     public bool HasRepairedComputer = false;
-    private bool ComputerHasBeenSelected = false;
+    [SerializeField] bool ComputerHasBeenSelected = false;
 
     private string[] NPCDialogue = null; // solo hay q cambiar el dialogo cuando repare la compu 
     
@@ -25,7 +27,7 @@ public class HolaDetect : MonoBehaviour
     {
         UIElements.SetActive(false);
         computadoras = GameObject.FindGameObjectsWithTag("Monitor");
-
+        CompuRara.SetActive(false);
       
     }
 
@@ -37,7 +39,7 @@ public class HolaDetect : MonoBehaviour
 
 
     void OnTriggerEnter(Collider col)
-    { //yo cavernicola, yo chocar contra pared ??? por lo de 
+    {  
 
 
         if(col.gameObject.GetComponent<NPCDialogue>() && !HasRepairedComputer)
@@ -51,8 +53,14 @@ public class HolaDetect : MonoBehaviour
 
         else if(col.gameObject.GetComponent<NPCDialogue>() && HasRepairedComputer)
         {
-            //cambiar al dialogo q ya la reparo. acordate de cambiar el booleano
+            
         }
+
+        if (col.gameObject.CompareTag("CompuRota"))
+        {
+            CompuRara.SetActive(true);
+        }
+
     }
 
     void OnTriggerExit(Collider col)
@@ -62,6 +70,10 @@ public class HolaDetect : MonoBehaviour
             UIElements.SetActive(false);
         }
 
+        if (col.gameObject.CompareTag("CompuRota"))
+        {
+            CompuRara.SetActive(false);
+        }
     }
 
     public void AvanzarDialogo()
@@ -73,11 +85,15 @@ public class HolaDetect : MonoBehaviour
                 dialogueTxt.text = NPCDialogue[++IntroMsgIndex];
             }
 
-             if(IntroMsgIndex >= 2)
+             if(IntroMsgIndex >= 2 && ComputerHasBeenSelected == false)
              {
                 
-                ComputerHasBeenSelected = MonitorRandom(); //si
+                ComputerHasBeenSelected = MonitorRandom();
+                ComputerHasBeenSelected = true;
              }
+
+             
+
            
         }
     }
@@ -98,7 +114,12 @@ public class HolaDetect : MonoBehaviour
         CompSeleccionada.GetComponent<AudioSource>().spatialBlend = 1;
         CompSeleccionada.GetComponent<AudioSource>().Play();
 
+
+        CompSeleccionada.gameObject.tag = "CompuRota";
         return true;
+
+        
+
+
     }
 }
-//veni a ds que quiero entender, no que me lo hagas :( xd
