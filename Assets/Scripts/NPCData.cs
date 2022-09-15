@@ -8,4 +8,5 @@ public class NPCData : ScriptableObject
     
     // Start is called before the first frame update
     public string[] dialogueLines;
+    public string[] finalDialogue;
 }

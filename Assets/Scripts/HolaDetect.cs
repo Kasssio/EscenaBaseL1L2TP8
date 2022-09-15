@@ -19,8 +19,10 @@ public class HolaDetect : MonoBehaviour
     [SerializeField] bool EnRango;
 
     private string[] NPCDialogue = null; // solo hay q cambiar el dialogo cuando repare la compu 
+    private string[] FinalNPCDialogue = null;
     
     private int IntroMsgIndex = 0;
+    private int FinalMsgIndex = 0;
     
    
     // Start is called before the first frame update
@@ -47,14 +49,19 @@ public class HolaDetect : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {  
-
-
         if(col.gameObject.GetComponent<NPCDialogue>() && !HasRepairedComputer)
         {
             NPCDialogue = col.gameObject.GetComponent<NPCDialogue>().data.dialogueLines;
+            FinalNPCDialogue = col.gameObject.GetComponent<NPCDialogue>().data.finalDialogue;
             UIElements.SetActive(true);
 
             dialogueTxt.text = NPCDialogue[IntroMsgIndex];
+        }
+
+        if(col.gameObject.GetComponent<NPCDialogue>() && HasRepairedComputer)
+        {
+            UIElements.SetActive(true);
+            dialogueTxt.text = FinalNPCDialogue[FinalMsgIndex];
         }
 
         if (col.gameObject.CompareTag("CompuRota") && HasRepairedComputer == false)
@@ -75,6 +82,7 @@ public class HolaDetect : MonoBehaviour
             EnRango = true;
         }
     }
+
     void OnTriggerExit(Collider col)
     {
         if (col.gameObject.CompareTag("JeroPrisma"))
@@ -91,6 +99,7 @@ public class HolaDetect : MonoBehaviour
 
     public void AvanzarDialogo()
     {
+        #region Unrepaired Branch
         if (Input.GetKeyDown(KeyCode.E) && dialogueTxt.IsActive() && !HasRepairedComputer)
         {
             if(IntroMsgIndex < 2 && !ComputerHasBeenSelected)               
@@ -106,13 +115,17 @@ public class HolaDetect : MonoBehaviour
              }
         }
 
-        if(Input.GetKeyDown(KeyCode.E) && dialogueTxt.IsActive() && HasRepairedComputer)
-         {
-           if(IntroMsgIndex >=2 && ComputerHasBeenSelected && HasRepairedComputer)
-            {
-              dialogueTxt.text = NPCDialogue[++IntroMsgIndex];
-            }
-         }
+        #endregion
+
+
+
+        if (Input.GetKeyDown(KeyCode.E) && dialogueTxt.IsActive() && HasRepairedComputer && FinalMsgIndex <= FinalNPCDialogue.Length)
+        {
+            //if user presses E, dialogue box is showing, computer has been repaired and we're in range of the dialogue arr
+
+            dialogueTxt.text = FinalNPCDialogue[++FinalMsgIndex];         
+
+        }
     }
 
 

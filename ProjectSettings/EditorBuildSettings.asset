@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/secreto.unity
+    guid: d8bb112390f9168449c12198b5107967
+  - enabled: 1
+    path: Assets/Scenes/Tic L1 L2 controller.unity
+    guid: 3329a9759f39477488b14835953caa79
   m_configObjects: {}
