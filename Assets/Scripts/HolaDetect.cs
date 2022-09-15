@@ -106,9 +106,9 @@ public class HolaDetect : MonoBehaviour
              }
         }
 
-        if(Input.GetKeyDown(KeyCode.E) && HasRepairedComputer)
+        if(Input.GetKeyDown(KeyCode.E) && dialogueTxt.IsActive() && HasRepairedComputer)
          {
-           if(IntroMsgIndex >= 4 && HasRepairedComputer)
+           if(IntroMsgIndex >=2 && ComputerHasBeenSelected && HasRepairedComputer)
             {
               dialogueTxt.text = NPCDialogue[++IntroMsgIndex];
             }
