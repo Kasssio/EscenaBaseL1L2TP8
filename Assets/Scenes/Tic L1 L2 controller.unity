@@ -873,6 +873,7 @@ MonoBehaviour:
   CompuRara: {fileID: 1240536638}
   HasRepairedComputer: 0
   ComputerHasBeenSelected: 0
+  EnRango: 0
 --- !u!81 &746865227
 AudioListener:
   m_ObjectHideFlags: 0
@@ -12855,7 +12856,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1240536639}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: RuidosRarosTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

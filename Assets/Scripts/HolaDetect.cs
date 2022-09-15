@@ -11,11 +11,12 @@ public class HolaDetect : MonoBehaviour
     [SerializeField] AudioClip StickyKeysSound;
     [SerializeField] GameObject CompuRara;
 
-
+    GameObject CompSeleccionada;
     GameObject[] computadoras;
 
     public bool HasRepairedComputer = false;
     [SerializeField] bool ComputerHasBeenSelected = false;
+    [SerializeField] bool EnRango;
 
     private string[] NPCDialogue = null; // solo hay q cambiar el dialogo cuando repare la compu 
     
@@ -35,6 +36,12 @@ public class HolaDetect : MonoBehaviour
     void Update()
     {
         AvanzarDialogo();
+        if(EnRango && Input.GetKeyDown(KeyCode.F))
+        {
+            CompuRara.SetActive(false);
+            HasRepairedComputer = true;
+            CompSeleccionada.GetComponent<AudioSource>().Stop();
+        }
     }
 
 
@@ -50,19 +57,24 @@ public class HolaDetect : MonoBehaviour
             dialogueTxt.text = NPCDialogue[IntroMsgIndex];
         }
 
-
-        else if(col.gameObject.GetComponent<NPCDialogue>() && HasRepairedComputer)
-        {
-            
-        }
-
-        if (col.gameObject.CompareTag("CompuRota"))
+        if (col.gameObject.CompareTag("CompuRota") && HasRepairedComputer == false)
         {
             CompuRara.SetActive(true);
         }
 
-    }
+        else if (col.gameObject.CompareTag("CompuRota") && HasRepairedComputer == true)
+        {
+            CompuRara.SetActive(false);
+        }
 
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.CompareTag("CompuRota"))
+        {
+            EnRango = true;
+        }
+    }
     void OnTriggerExit(Collider col)
     {
         if (col.gameObject.CompareTag("JeroPrisma"))
@@ -73,6 +85,7 @@ public class HolaDetect : MonoBehaviour
         if (col.gameObject.CompareTag("CompuRota"))
         {
             CompuRara.SetActive(false);
+            EnRango = false;
         }
     }
 
@@ -91,18 +104,21 @@ public class HolaDetect : MonoBehaviour
                 ComputerHasBeenSelected = MonitorRandom();
                 ComputerHasBeenSelected = true;
              }
-
-             
-
-           
         }
+
+        if(Input.GetKeyDown(KeyCode.E) && HasRepairedComputer)
+         {
+           if(IntroMsgIndex >= 4 && HasRepairedComputer)
+            {
+              dialogueTxt.text = NPCDialogue[++IntroMsgIndex];
+            }
+         }
     }
 
 
     bool MonitorRandom()
     {
-
-        GameObject CompSeleccionada = computadoras[Random.Range(0, computadoras.Length)];
+         CompSeleccionada = computadoras[Random.Range(0, computadoras.Length)];
 
         CompSeleccionada.gameObject.AddComponent<AudioSource>(); 
 
@@ -114,12 +130,7 @@ public class HolaDetect : MonoBehaviour
         CompSeleccionada.GetComponent<AudioSource>().spatialBlend = 1;
         CompSeleccionada.GetComponent<AudioSource>().Play();
 
-
         CompSeleccionada.gameObject.tag = "CompuRota";
         return true;
-
-        
-
-
     }
 }
